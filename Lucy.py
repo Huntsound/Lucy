@@ -440,7 +440,7 @@ while True:
             if req != '':
                 playRandomMusic(getMusicList(req))
                 response = response + 'playing a {} song. '.format(req)
-#To-Do List
+# To-Do List
         if "to-do list" in text or "to do list" in text:
             if "write" in text:
                 WriteToDo()
@@ -450,13 +450,17 @@ while True:
                 ClearToDo()
             if "delete" in text:
                 DeleteToDo(GetDelToDo(text))
-#System commands
+# System commands
         if 'shut down computer' in text:
             os.system("shutdown/s /t 1")
         if 'sleep computer' in text:
             os.system('rundll32.exe powrprof,SetSuspendState 0,1,0')
         if 'restart computer' in text:
             os.system("shutdown/r /t 1")
+# Response
+        if response != '':
+            assistant_response(response)
+# Goodbye
         if goodbye(text):
-            response = response + "Goodbye, Humanoid"
+            assistant_response("Goodbye, Humanoid")
             break
