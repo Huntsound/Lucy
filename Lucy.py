@@ -12,8 +12,6 @@ import pyttsx3
 # Initialization
 warnings.filterwarnings('ignore')
 web_path = 'C:/Users/Hakan/AppData/Local/Programs/Opera GX/launcher.exe %s'
-s_actv = True
-p_actv = False
 tts = pyttsx3.init()
 voices = tts.getProperty('voices')
 tts.setProperty('voice', voices[1].id)
@@ -419,23 +417,7 @@ def ttn(t):
 assistant_response('Hello Humanoid, How may I serve you')  # Greeting
 while True:
     response = ''
-    text = ''
-    if s_actv:
-        text = listen()
-    if p_actv:
-        file = open('./Texts/Phone.txt', 'r')
-        lines = file.readlines()
-        file.close()
-
-        for i in range(0, len(lines)):
-            lines[i] = lines[i].strip('\n')
-            text = text + lines[i]
-
-        file = open('./Texts/Phone.txt', 'w')
-        file.write('')
-        file.close()
-
-
+    text = listen()
 
     if wake_words(text):
         if getsalute(text):
@@ -476,42 +458,5 @@ while True:
         if 'restart computer' in text:
             os.system("shutdown/r /t 1")
         if goodbye(text):
-            s_actv = False
-            p_actv = False
             response = response + "Goodbye, Humanoid"
-#Activation and deactivation sequence
-        if 'disable speech activation' in text and s_actv:
-            s_actv = False
-            response = response + 'disabling speech activation'
-
-        elif 'disable speech activation' in text and s_actv == False:
-            response = response + 'Speech activation is already disabled'
-
-        if 'enable speech activation' in text and s_actv == False:
-            s_actv = True
-            response = response + 'enabling speech activation'
-
-        elif 'enable speech activation' in text and s_actv:
-            response = response + 'Speech activation is already enabled'
-
-        if 'disable phone activation' in text and p_actv:
-            p_actv = False
-            file = open('./Texts/Lucy.txt', 'w')
-            file.write('disable phone activation')
-            file.close()
-            response = response + 'disabling phone activation'
-
-        elif 'disable phone activation' in text and p_actv == False:
-            response = response + 'Phone activation is already disabled'
-
-        if 'enable phone activation' in text and p_actv == False:
-            p_actv = True
-            os.startfile("server.py")
-            response = response + 'enabling phone activation'
-
-        elif 'enable phone activation' in text and p_actv:
-            response = response + 'Phone activation is already enabled'
-        if response != '':
-            assistant_response(response)
-        if s_actv == False and p_actv == False:
             break
