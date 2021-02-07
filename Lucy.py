@@ -1,3 +1,8 @@
+# LUCY
+# a virtual assistant
+# Using voice inputs and outputs
+# Hakan Kestir (Huntsound) 2021 Copyrighted
+
 # Libraries
 import speech_recognition as sr
 import os
