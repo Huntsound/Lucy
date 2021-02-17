@@ -324,16 +324,16 @@ def WriteToDo():
                                                                                # user wants
             while True:  # Answer loop
                 answer = listen()  # Listens to user for an answer to the question above
-                if answer == "yes i do":  # If user  accepts the entry
+                if "yes" in answer:  # If user  accepts the entry
                     assistant_response("writing entry")  # Notifying the user
                     file = open("./Texts/To-Do.txt", 'a')  # Opening the txt file in appending format
                     file.writelines(entry + '\n')  # Appends the entry to the txt file
                     file.close()  # Closing file for memory reduction
                     written = True  # Variable used to exit while loops
                     break
-                elif answer == "no i don't" or answer == "nevermind":  # Breaks the answer loop
+                elif "no" in answer or"nevermind" in answer:  # Breaks the answer loop
                     break
-            if written or answer == "nevermind":  # Breaks the entry loop
+            if written or "nevermind" in answer:  # Breaks the entry loop
                 break
 
 
