@@ -419,7 +419,7 @@ def ttn(t):
 
 
 # Main loop
-assistant_response('Hello Humanoid, How may I assist you')  # Greeting
+assistant_response('Hello Humanoid, How may I serve you')  # Greeting
 while True:
     response = ''
     text = listen()
