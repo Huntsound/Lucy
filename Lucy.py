@@ -306,23 +306,27 @@ def responseSalute():
 # Object notations could be useful
 def playRandomMusic(List):
     # Using the list to play a random song on youtube
-    if List != 0:
+    if List ==[]:
+        assistant_response("I don't know any songs of that type")
+        return False
+    elif List == 0:
+        return False
+    else:
         # Adding song ID's to youtube link prefix instead of using whole link to reduce memory usage
         YTprefix = "https://www.youtube.com/watch?v="
-        try:
-            x = ra.randint(0, len(List))  # Random number x
-            wb.get(web_path).open_new_tab(YTprefix + List[x])  # Plays a random song from the list
-        except IndexError:
-            assistant_response("Sorry, can you say that again.")
+        x = ra.randint(0, len(List)-1)  # Random number x
+        wb.get(web_path).open_new_tab(YTprefix + List[x])  # Plays a random song from the list
+        return True
 
 
 def getMusicList(Type):
     # Using the type parameter to find list containing that type of songs and returns the contents of the file as a list
-   
+    SongL = []
+    if Type == 0:
+        return 0
     folder=os.path.dirname(__file__)
     subfolder=folder+"/Songs/"
     doc=subfolder+Type+".txt"
-    SongL = []
     try:
         Songs = open(doc, 'r')  # Opens the txt file in reading format
     except FileNotFoundError:
@@ -351,7 +355,11 @@ def getMusicRequest(text):
             end = text.find("music") + len("music")
             sub = text[start:end]
             parsed = parse.parse(fstr, sub)
-    return parsed[0]
+    try:
+        return parsed[0]
+    except TypeError:
+        assistant_response("Sorry, I couldn't understand. Could you repeat that, please")
+        return 0
 ## </Songs>
 
 
@@ -547,10 +555,9 @@ while True:
             if 'play a' in i:
                 req = getMusicRequest(i)
                 if req != '':
-                    playRandomMusic(getMusicList(req))
-                    assistant_response('playing a {} song. '.format(req))
-
-                    continue
+                    if playRandomMusic(getMusicList(req)):
+                        assistant_response('playing a {} song.'.format(req))
+                        continue
 # To-Do List
             if "to-do list" in i or "to do list" in i:
                 if "write" in i:
