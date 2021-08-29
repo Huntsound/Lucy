@@ -1,7 +1,5 @@
-# LUCY
-# a virtual assistant
-# Using voice inputs and outputs
-# Hakan Kestir (Huntsound) 2021 Copyrighted
+# Lucy
+# A virtual assistant
 
 # Libraries
 import speech_recognition as sr
@@ -15,11 +13,12 @@ import parse
 import pyttsx3
 
 # Initialization
-warnings.filterwarnings('ignore')
-web_path = 'C:/Users/Hakan/AppData/Local/Programs/Opera GX/launcher.exe %s'
-tts = pyttsx3.init()
+warnings.filterwarnings('ignore') # Filtring unnecesary warnings
+web_path = 'C:/Users/Hakan/AppData/Local/Programs/Opera GX/launcher.exe %s' # Path to the browser you want to use
+tts = pyttsx3.init() # Initiating text-to-speech
 voices = tts.getProperty('voices')
-tts.setProperty('voice', voices[1].id)
+tts.setProperty('voice', voices[1].id) # Change the number for a different voice
+ra.seed(a=None, version=2) # Randomizing seed
 
 
 # Functions
@@ -29,14 +28,14 @@ def listen():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         r.adjust_for_ambient_noise(source, duration=5)  # Ambient noise adjustment
-        print("I am listening...")  # Signals user that lucy is ready to take requests
+        print("I am listening...")  # Signals user that Lucy is ready to take requests
         audio = r.listen(source)  # Save audio to a variable
     data = ""
     try:
         data = r.recognize_google(audio)  # Transform audio to string using speech recognition
         print("You said: " + data)  # Print detected sentence
         data = data.lower()  # Lower case detected string for better processing in other functions
-        data += '.'
+        data += ','
     except sr.UnknownValueError:  # If detected audio couldn't be transformed into string
         print("Sorry, I couldn't understand what you said.")
     except sr.RequestError as e:
@@ -54,7 +53,7 @@ def assistant_response(text):
 def wake_words(text):
     # One of wake words must be said to activate lucy
 
-    wake = ['hey lucy', 'okay lucy']  # Valid wake words to activate lucy
+    wake = ['hey lucy', 'okay lucy', 'hey baby','hey babe']  # Valid wake words to activate lucy
 
     # If text includes one of these wake words, returns true
     for phrase in wake:
@@ -96,7 +95,7 @@ def get_date():
 
 
 def get_time():
-    # Returns a sentence about today's time for lucy to read
+    # Returns a sentence about today's time for Lucy to read
     now = datetime.datetime.now()
 
     # Convert military time to a.m or p.m accordingly
@@ -120,6 +119,11 @@ def get_time():
     # Returns the sentence
     return "It is " + str(hour) + ':' + minute + ' ' + meridiem + '.'
 
+def DateandTime(text):
+    if "date" in text:
+        assistant_response(get_date())
+    if "time" in text:
+        assistant_response(get_time())
 
 def get_search_query(text):
     # Using a Parsing procedure to extract search query from the text
@@ -134,9 +138,9 @@ def get_search_query(text):
     try:
         return search_query[0]
     except TypeError:
-        fstr = "search {}."
+        fstr = "search {},"
         start = text.find("search")
-        end = text.find(".") + len(".")
+        end = text.find(",") + len(",")
         sub = text[start:end]
         search_query = parse.parse(fstr, sub)
         try:
@@ -169,14 +173,9 @@ def get_program_name(text):
     try:
         return search_query[0]
     except TypeError:
-        # If user doesn't say "okay", this part will take from the phrase "open up" to all the way end
-        # This is fine in only-one-command requests
-        # However with multiple commands at once, this will take everything and cause problems
-        # Implementing a limit might reduce the problem
-        # Further attention required
-        fstr = "open up {}."
+        fstr = "open up {},"
         start = text.find("open up")
-        end = text.find(".") + len(".")
+        end = text.find(",") + len(",")
         sub = text[start:end]
         search_query = parse.parse(fstr, sub)
         try:
@@ -187,15 +186,23 @@ def get_program_name(text):
 
 def run_program(app):
     # Using the app parameter, runs the specified app
-    folder = os.path.dirname(__file__)  # Current folder of Lucy !using dot to specify current location did NOT work!
+    folder = os.path.dirname(__file__)  # Current folder of Lucy! using dot to specify current location did NOT work!
     # Further experiments and work required
     #Games
     sub_folder = folder + "/Shortcuts/Games/"  # Games sub folder, dot operator didn't work
     AppList = os.listdir(sub_folder)  # Gets the names of the files inside of sub folder
-    for i in range(0, len(AppList)):  # Checks if app is inside this sub folder
+    for i in range(0, len(AppList)):# Checks if app is inside this sub folder
         if app in AppList[i]:  # If so, run the program
             os.startfile(sub_folder + AppList[i])
             assistant_response(GameSalute())  # Give a salute specific for opening games
+            return app
+    #Production
+    sub_folder = folder + "/Shortcuts/Production/"  
+    AppList = os.listdir(sub_folder)  
+    for i in range(0, len(AppList)):  
+        if app in AppList[i]:
+            os.startfile(sub_folder + AppList[i])
+            assistant_response(ProductionSalute())
             return app
     #Softwares
     sub_folder = folder + "/Shortcuts/Softwares/"
@@ -212,14 +219,46 @@ def run_program(app):
     assistant_response("Sorry, I couldn't find what you are looking for.")
     return False
 
+def ProductionSalute():
+    
+
+    SaluteRsp = ["Leave your mark on history",
+                 "You have creativity flowing in your veins",
+                 "A power beyond imagining",
+                 "The Colossus needs you",
+                 "Last five brain cells, ASSEMBLE!"]
+
+    x = ra.randint(0, len(SaluteRsp)-1)  # selects a random number x
+    return SaluteRsp[x]  # Returns the xth index of the list
 
 def goodbye(text):
-    # Returns true if the word "goodbye" detected in text
-    return "goodbye" in text
+    lst = ["take care of yourself",'see you later']
+    for i in lst:
+        if i in text:
+            return True
+    return False
+
+def shutoff(text):
+    lst = ["shut down yourself", "shut yourself down"]
+    for i in lst:
+        if i in text:
+            return True
+    return False
+
+def goodbye_response():
+    response = ['Thank you Master', 'You too, Master', 
+    'See you, Master', 'Goodbye, Master', "I will miss you, Master", 
+    " I will be looking forward to see you again, Master"]
+    x = ra.randint(0, len(response)-1)  # selects a random number x
+    return response[x]
+
+def shutoff_response():
+    response = ["Okay, see you later","I am shutting myself down"]
+    x = ra.randint(0, len(response)-1)  # selects a random number x
+    return response[x]
 
 
 def GameSalute():
-    # Randomly selects a greeting to say when a game executed by Lucy
 
     SaluteRsp = ["Good Choice.",
                  "Happy Hunting.",
@@ -228,9 +267,10 @@ def GameSalute():
                  "Don't spend too much time. It's bad for your eyes",
                  "Go and do some exercise. Your spine needs it.",
                  "It's a great day to play some games.",
+                 "Aim for the head",
                  "If snacks are ready, let's get started."]
 
-    x = ra.randint(0, len(SaluteRsp))  # selects a random number x
+    x = ra.randint(0, len(SaluteRsp)-1)  # selects a random number x
     return SaluteRsp[x]  # Returns the xth index of the list
 
 
@@ -251,11 +291,10 @@ def responseSalute():
                  "Not bad.",
                  "Been better.",
                  "Excellent.",
-                 "Like shit.",
                  "I'm feeling wonderful.",
                  "It's a great day to do some work.",
                  "I feel better, thanks."]
-    x = ra.randint(0,len(SaluteRsp))  # Random number x
+    x = ra.randint(0,len(SaluteRsp)-1)  # Random number x
     return SaluteRsp[x]
 
 
@@ -279,9 +318,13 @@ def playRandomMusic(List):
 
 def getMusicList(Type):
     # Using the type parameter to find list containing that type of songs and returns the contents of the file as a list
+   
+    folder=os.path.dirname(__file__)
+    subfolder=folder+"/Songs/"
+    doc=subfolder+Type+".txt"
     SongL = []
     try:
-        Songs = open("./Songs/" + Type + ".txt", 'r')  # Opens the txt file in reading format
+        Songs = open(doc, 'r')  # Opens the txt file in reading format
     except FileNotFoundError:
         assistant_response("sorry, i couldn't find that type of song")  # Notify if that type of music list is not valid
         return 0
@@ -313,7 +356,13 @@ def getMusicRequest(text):
 
 
 ## <ToDoList>
+
 def WriteToDo():
+    
+    folder=os.path.dirname(__file__)
+    subfolder=folder+"/Texts/"
+    doc=subfolder+"To-Do List.txt"
+    
     # Enters a loop to form a session of entry writing to prevent false-recognized entries
     assistant_response("I'm waiting for your entry")  # Notifying the user
     written = False
@@ -326,7 +375,7 @@ def WriteToDo():
                 answer = listen()  # Listens to user for an answer to the question above
                 if "yes" in answer:  # If user  accepts the entry
                     assistant_response("writing entry")  # Notifying the user
-                    file = open("./Texts/To-Do.txt", 'a')  # Opening the txt file in appending format
+                    file = open(doc, 'a')  # Opening the txt file in appending format
                     file.writelines(entry + '\n')  # Appends the entry to the txt file
                     file.close()  # Closing file for memory reduction
                     written = True  # Variable used to exit while loops
@@ -338,9 +387,14 @@ def WriteToDo():
 
 
 def ReadToDo():
+   
+    folder=os.path.dirname(__file__)
+    subfolder=folder+"/Texts/"
+    doc=subfolder+"To-Do List.txt"
+   
     # Lucy reads the contents of the to-do list
     response = ''
-    file = open("./Texts/To-Do.txt", "r")  # Open txt file in reading format
+    file = open(doc, "r")  # Open txt file in reading format
     todo = file.readlines()  # Save each line in an individual element of the list called todo
     file.close()  # Close the file for memory reduction
     for i in range(0, len(todo)):
@@ -349,9 +403,14 @@ def ReadToDo():
 
 
 def ClearToDo():
+  
+    folder=os.path.dirname(__file__)
+    subfolder=folder+"/Texts/"
+    doc=subfolder+"To-Do List.txt"
+   
     # Clears to-do list
     assistant_response("Clearing to do list")  # Notifying user
-    file = open("./Texts/To-Do.txt", "w")  # Opening txt file in writing format
+    file = open(doc, "w")  # Opening txt file in writing format
     file.write('')  # Overwriting the whole to-do list with an empty string
     file.close()  # Closing the file to reduce memory
 
@@ -374,8 +433,8 @@ def GetDelToDo(text):
         # It makes it necessary to change the format and sub strings and try again
         #
         # Further experiments and work required for a better outcome
-        fstr = "delete {} from to-do list"
-        start = text.find("delete")
+        fstr = "delete entry {} from to-do list"
+        start = text.find("delete entry")
         end = text.find("to-do list") + len("to-do list")
         sub = text[start:end]
         parsed = parse.parse(fstr, sub)
@@ -388,6 +447,11 @@ def GetDelToDo(text):
 
 def DeleteToDo(n):
     # Deletes the entry specified with number n from to do list
+    
+    folder=os.path.dirname(__file__)
+    subfolder=folder+"/Texts/"
+    doc=subfolder+"To-Do List.txt"
+    
     if n != False:
         try:
             line = int(n) - 1  # -1 added because indexes start from 0
@@ -395,12 +459,12 @@ def DeleteToDo(n):
             line = int(ttn(n)) - 1  # Using a function to transform the pronunciation
                                     # of the number to the number itself
                                     # Necessary due to speech recognition returns number or pronunciation of the number
-        file = open("./Texts/To-Do.txt", "r")  # Open to-do.txt in reading format
+        file = open(doc, "r")  # Open to-do.txt in reading format
         todo = file.readlines()  # Saves each line in a separate element of the list called todo
         file.close()  # Closes file after reading to reduce memory
         try:
             todo.__delitem__(line)  # Deletes the element specified with the variable called line that was defined above
-            file = open("./Texts/To-Do.txt", "w")  # Opens the same txt file in writing format
+            file = open(doc, "w")  # Opens the same txt file in writing format
             file.writelines(todo)  # Writes the elements of the list back at the txt file except the deleted line above
             file.close()  # Closing file to reduce memory
             assistant_response("entry deleted")  # Notify the user for a successful deletion
@@ -417,55 +481,104 @@ def ttn(t):
     return False
 ## </ToDoList>
 
+def string_insert(string, index, insert): # Inserts a string to another string in a specified index
+    return string[:index]+insert+string[index:]
 
-# Main loop
-assistant_response('Hello Humanoid, How may I serve you')  # Greeting
+def comma_adder(text):
+    func_list = ['search','open up', 'play a', 'tell me', "read my to", 'write my to','clear my to','delete entry',
+    'shut down computer','sleep computer','restart computer', 'take care of yourself', "what's up","how are you",
+    "how is it going",'shut yourself down',"shut down yourself",'see you later', 'and'] #IMPORTANT:"and" word must be at the very end of this list
+    for func in func_list:
+        index = 0
+        while True:
+            index = text.find(func,index)
+            if(index ==-1):
+                break
+            if func != "and" or text[index+4] == ',':
+                text = string_insert(text,index,", ")
+            index += 3
+    return text
+def separator(text):
+    begin = 0
+    end = 0
+    list = []
+    while True:
+        end = text.find(',',begin)
+        if end == -1:
+            break
+        list.append(text[begin:end])
+        begin = end + 1
+    list.remove(list[0])
+    for i in list:
+        if i == ' and ':
+            list.remove(i)
+    for i in range(len(list)):
+        list[i] += ','
+    return list
+
+
+# Beginning
+assistant_response('Hello Humanoid, How may I help you')  # Greeting
+
+# Main Loop
 while True:
-    response = ''
     text = listen()
 
     if wake_words(text):
-        if getsalute(text):
-            response = response + responseSalute() + " "
-        if 'date' in text:
-            response = response + get_date() + " "
-        if 'time' in text:
-            response = response + get_time()
-        if 'search' in text:
-            if get_search_query(text) != '' and get_search_query(text) != False:
-             google_search(get_search_query(text))
-            response = response + 'searching ' + get_search_query(text) + '.'
-        if 'open up' in text:
-            app = get_program_name(text)
-            if app != False:
-                if run_program(app):
-                    response = response + 'opening ' + app + ' .'
-        if 'play' in text:
-            req = getMusicRequest(text)
-            if req != '':
-                playRandomMusic(getMusicList(req))
-                response = response + 'playing a {} song. '.format(req)
+        text = separator(comma_adder(text))
+        for i in text:
+            if 'search' in i:
+                search_req = get_search_query(i)
+                if search_req != '' and search_req != False:
+                    google_search(search_req)
+                    assistant_response('searching ' + search_req + '.')
+                    continue
+            if 'open up' in i:
+                app = get_program_name(i)
+                if app != False:
+                    run_program(app)
+                    assistant_response("opening " + app + ".")
+                    continue
+            if getsalute(i):
+                assistant_response(responseSalute())
+                continue
+            if "tell me" in i:
+                DateandTime(i)
+            if 'play a' in i:
+                req = getMusicRequest(i)
+                if req != '':
+                    playRandomMusic(getMusicList(req))
+                    assistant_response('playing a {} song. '.format(req))
+
+                    continue
 # To-Do List
-        if "to-do list" in text or "to do list" in text:
-            if "write" in text:
-                WriteToDo()
-            if "read" in text:
-                ReadToDo()
-            if "clear" in text:
-                ClearToDo()
-            if "delete" in text:
-                DeleteToDo(GetDelToDo(text))
+            if "to-do list" in i or "to do list" in i:
+                if "write" in i:
+                    WriteToDo()
+                    continue
+                if "read" in i:
+                    ReadToDo()
+                    continue
+                if "clear" in i:
+                    ClearToDo()
+                    continue
+                if "delete" in i:
+                    DeleteToDo(GetDelToDo(i))
+                    continue
 # System commands
-        if 'shut down computer' in text:
-            os.system("shutdown/s /t 1")
-        if 'sleep computer' in text:
-            os.system('rundll32.exe powrprof,SetSuspendState 0,1,0')
-        if 'restart computer' in text:
-            os.system("shutdown/r /t 1")
-# Response
-        if response != '':
-            assistant_response(response)
+            if 'shut down computer' in i:
+                os.system("shutdown/s /t 1")
+                continue
+            if 'sleep computer' in i:
+                os.system('rundll32.exe powrprof,SetSuspendState 0,1,0')
+                continue
+            if 'restart computer' in i:
+                os.system("shutdown/r /t 1")
+                continue
 # Goodbye
-        if goodbye(text):
-            assistant_response("Goodbye, Humanoid")
-            break
+            if goodbye(i): # Goodbye gives the user a randomised response for more realism
+                assistant_response(goodbye_response())
+                exit()
+            if shutoff(i): # This function ends the program instantly without any response
+                assistant_response(shutoff_response())
+                exit()
