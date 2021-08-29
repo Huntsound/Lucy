@@ -418,8 +418,8 @@ def ClearToDo():
 def GetDelToDo(text):
     # Parses the text to extract which entry of the to-do list is going to be deleted
     parsed = ''
-    fstr = "delete {} from to do list"  # Format string used as a template
-    start = text.find("delete")  # Finds the starting index of the word "delete" in text
+    fstr = "delete entry {} from to do list"  # Format string used as a template
+    start = text.find("delete entry")  # Finds the starting index of the word "delete" in text
     end = text.find("to do list") + len("to do list")  # Finds the ending index of the word "to do list" in text
     sub = text[start:end]  # Using start and end indexes to get the phrase that's going to get parsed
     # i.e sub = delete number 3 from to do list
