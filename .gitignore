@@ -2,5 +2,7 @@
 Shortcuts/Games/
 Shortcuts/Softwares/
 Shortcuts/Production/
+__pycache__/
+library/__pycache__/
 Songs/
 Texts/To-Do List.txt
