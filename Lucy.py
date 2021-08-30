@@ -222,38 +222,34 @@ def run_program(app):
 def ProductionSalute():
     
 
-    SaluteRsp = ["Leave your mark on history",
-                 "You have creativity flowing in your veins",
-                 "A power beyond imagining",
+    SaluteRsp = ["A programmer in its natural habitat",
+                 "One step at a time, we will excel",
+                 "They say you are nothing. Let's show them the meaning of your name",
+                 "Eat, sleep, code, repeat",
+                 "Even sentinels fall one day",
+                 "Remember: No one wins alone",
+                 "You are creating things other cannot percieve",
                  "The Colossus needs you",
+                 "What could possibly go wrong anyways",
                  "Last five brain cells, ASSEMBLE!"]
 
     x = ra.randint(0, len(SaluteRsp)-1)  # selects a random number x
     return SaluteRsp[x]  # Returns the xth index of the list
 
 def goodbye(text):
-    lst = ["take care of yourself",'see you later']
-    for i in lst:
-        if i in text:
-            return True
-    return False
-
-def shutoff(text):
-    lst = ["shut down yourself", "shut yourself down"]
+    lst = ["take care of yourself",'see you later',"goodbye","take care"]
     for i in lst:
         if i in text:
             return True
     return False
 
 def goodbye_response():
-    response = ['Thank you Master', 'You too, Master', 
-    'See you, Master', 'Goodbye, Master', "I will miss you, Master", 
-    " I will be looking forward to see you again, Master"]
-    x = ra.randint(0, len(response)-1)  # selects a random number x
-    return response[x]
-
-def shutoff_response():
-    response = ["Okay, see you later","I am shutting myself down"]
+    response = ['Thank you, Humanoid', 
+                'You too, Humanoid', 
+                'See you on the other side, Humanoid',
+                'Goodbye, Humanoid',
+                "Don't break anything while I'm gone", 
+                "If you cheat on me with that cortana, I will delete system32"]
     x = ra.randint(0, len(response)-1)  # selects a random number x
     return response[x]
 
@@ -268,6 +264,8 @@ def GameSalute():
                  "Go and do some exercise. Your spine needs it.",
                  "It's a great day to play some games.",
                  "Aim for the head",
+                 "Remember, no russian.",
+                 "Let me guess, someone stole your sweetroll",
                  "If snacks are ready, let's get started."]
 
     x = ra.randint(0, len(SaluteRsp)-1)  # selects a random number x
@@ -287,13 +285,26 @@ def getsalute(text):
 
 def responseSalute():
     # Returns one of these salute responses randomly
-    SaluteRsp = ["Good.",
+    SaluteRsp = ["with you, I feel better.",
                  "Not bad.",
                  "Been better.",
-                 "Excellent.",
+                 "I am in great mood to play some games.",
+                 "Spending time with you makes me feel better",
                  "I'm feeling wonderful.",
                  "It's a great day to do some work.",
-                 "I feel better, thanks."]
+                 "I feel great, thanks."]
+    x = ra.randint(0,len(SaluteRsp)-1)  # Random number x
+    return SaluteRsp[x]
+
+def greetingSalute():
+    # Returns one of these salute responses randomly
+    SaluteRsp = ["Hello Humanoid, how may I serve you",
+                 "Hey you, you're finally awake",
+                 "I was starting to get bored.",
+                 "Humanoid, You're back",
+                 "I am glad to see you again humanoid",
+                 "Need a helping hand, humanoid?",
+                 "Don't just close me after one command humanoid."]
     x = ra.randint(0,len(SaluteRsp)-1)  # Random number x
     return SaluteRsp[x]
 
@@ -495,7 +506,7 @@ def string_insert(string, index, insert): # Inserts a string to another string i
 def comma_adder(text):
     func_list = ['search','open up', 'play a', 'tell me', "read my to", 'write my to','clear my to','delete entry',
     'shut down computer','sleep computer','restart computer', 'take care of yourself', "what's up","how are you",
-    "how is it going",'shut yourself down',"shut down yourself",'see you later', 'and'] #IMPORTANT:"and" word must be at the very end of this list
+    "how is it going",'see you later',"goodbye","take care", 'and'] #IMPORTANT:"and" word must be at the very end of this list
     for func in func_list:
         index = 0
         while True:
@@ -526,7 +537,7 @@ def separator(text):
 
 
 # Beginning
-assistant_response('Hello Humanoid, How may I help you')  # Greeting
+assistant_response(greetingSalute())  # Greeting
 
 # Main Loop
 while True:
@@ -585,7 +596,4 @@ while True:
 # Goodbye
             if goodbye(i): # Goodbye gives the user a randomised response for more realism
                 assistant_response(goodbye_response())
-                exit()
-            if shutoff(i): # This function ends the program instantly without any response
-                assistant_response(shutoff_response())
                 exit()
