@@ -1,8 +1,13 @@
 
-Shortcuts/Games/
-Shortcuts/Softwares/
-Shortcuts/Production/
+Shortcuts/Games/*
+Shortcuts/Softwares/*
+Shortcuts/Production/*
 __pycache__/
 library/__pycache__/
-Songs/
+Songs/*
 Texts/To-Do List.txt
+
+!Shortcuts/Games/.gitkeep
+!Shortcuts/Production/.gitkeep
+!Shortcuts/Softwares/.gitkeep
+!Songs/.gitkeep

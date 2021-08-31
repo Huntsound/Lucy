@@ -19,10 +19,13 @@ import random as ra
 warnings.filterwarnings('ignore') # Filtring unnecesary warnings
 web_path = 'C:/Users/Hakan/AppData/Local/Programs/Opera GX/launcher.exe %s' # Path to the browser you want to use
 ra.seed(a=None, version=2) # Randomizing seed
-folder=os.path.dirname(__file__) # Current directary of this file
+folder=os.path.dirname(__file__) # Current directory of this file
 todolist = folder + "/Texts/To-Do List.txt"
 songs = folder + "/Songs/"
 programs = folder + "/Shortcuts/"
+if not os.path.isfile(todolist): # If a to-do list doesn' exist, to do functions will fail
+    f = open(todolist,'w+')      # So in this case, it creates a to-do list
+    f.close()
 
 # Beginning
 assistant_response(pickRandom(greeting))  # Greeting
