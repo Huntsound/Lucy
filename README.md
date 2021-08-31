@@ -21,23 +21,19 @@ Things she can do:
 
 
 Contributors:
-Author/Creator: Hakan Kestir (Huntsound) Hakankestir@gmail.com
 
-Contributor: Emre Alaybeyoglu
+    Author/Creator: Hakan Kestir (Huntsound) Hakankestir@gmail.com
+    Contributor: Emre Alaybeyoglu
 
 
 
 Necessary packages and versions:
 
-Python 3.9.0 64-bit
-
-PyAudio 0.2.11
-
-SpeechRecognition 3.8.1
-
-pyttsx3 2.90
-
-parse 1.18.0
+    Python 3.9.0 64-bit
+    PyAudio 0.2.11
+    SpeechRecognition 3.8.1
+    pyttsx3 2.90
+    parse 1.18.0
 
 
 
