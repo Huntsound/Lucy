@@ -5,43 +5,77 @@ Summary:
 Lucy is a virtual assistant that can help users with their basic operations.
 She has speech recognition and text-to-speech for input and output so users can communicate and give commands via their voice.
 Things she can do:
+
     open programs
+    
     search on google
+    
     tell date and time
+    
     play a song
+    
     keep a to-do list
+    
     shutdown/restart/sleep
+
+
 
 Contributors:
 Author/Creator: Hakan Kestir (Huntsound) Hakankestir@gmail.com
+
 Contributor: Emre Alaybeyoglu
+
+
 
 Necessary packages and versions:
 
 Python 3.9.0 64-bit
+
 PyAudio 0.2.11
+
 SpeechRecognition 3.8.1
+
 pyttsx3 2.90
+
 parse 1.18.0
+
+
 
 In-Python modules:
 
 os
+
 datetime
+
 calendar
+
 warnings
+
 random
+
 webbrowser
 
+
+
 Recommended folder configuration:
+
 ==Case Sensitive==
+
 /library/
+
 /Shortcuts/
+
 /Shortcuts/Games/
+
 /Shortcuts/Production/
+
 /Shortcuts/Softwares/
+
 /Songs/
+
 /Texts/To-Do List.txt
+
+
 
 NOTE: These directory names can be changed in Lucy.py file, although not recommended.
 in library/Program.py , users can change the names of the folders inside the Shortcuts folder, not recommended.
@@ -55,8 +89,12 @@ Names of the files must be types of the songs inside that txt file.
 i.e user wants to create a list of songs that are motivating. File name must be motivating.txt
 when giving commands to Lucy, "play a motivating song" will open a random song from this motivating.txt file
 Inside this file, YouTube VideoID's must be saved. It is the section after the "=" sign of YouTube URL
+
 i.e URL = https://www.youtube.com/watch?v=[dQw4w9WgXcQ]
+
                                           ^^This part^^
+
+
 
 Operating Instructions:
 
