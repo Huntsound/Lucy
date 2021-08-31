@@ -3,8 +3,8 @@
 # Further experiments and work required
 # Object notations could be useful
 
-from library.VoiceIO import *
-from library.misc import *
+from library.VoiceIO import assistant_response
+from library.misc import extract_word,pickRandom
 import webbrowser as wb
 
 def getMusicRequest(text):

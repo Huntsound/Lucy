@@ -1,4 +1,4 @@
-from library.misc import *
+from library.misc import extract_word
 import webbrowser as wb
 
 def get_search_query(text):

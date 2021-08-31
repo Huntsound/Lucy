@@ -1,6 +1,6 @@
-from library.misc import *
-from library.Responses import *
-from library.VoiceIO import *
+from library.misc import extract_word,pickRandom
+from library.Responses import games,production
+from library.VoiceIO import assistant_response
 import webbrowser as wb
 import os
 def get_program_name(text):

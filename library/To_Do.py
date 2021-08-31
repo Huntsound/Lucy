@@ -1,4 +1,4 @@
-from library.misc import *
+from library.misc import extract_word,text_to_number
 from library.VoiceIO import *
 
 ## <ToDoList>

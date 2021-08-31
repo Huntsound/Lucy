@@ -1,4 +1,4 @@
-from library.VoiceIO import *
+from library.VoiceIO import assistant_response
 import datetime
 import calendar
 
