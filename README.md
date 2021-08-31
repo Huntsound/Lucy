@@ -6,18 +6,12 @@ Lucy is a virtual assistant that can help users with their basic operations.
 She has speech recognition and text-to-speech for input and output so users can communicate and give commands via their voice.
 Things she can do:
 
-    open programs
-    
-    search on google
-    
-    tell date and time
-    
-    play a song
-    
-    keep a to-do list
-    
+    open programs   
+    search on google    
+    tell date and time    
+    play a song    
+    keep a to-do list    
     shutdown/restart/sleep
-
 
 
 Contributors:
@@ -39,37 +33,25 @@ Necessary packages and versions:
 
 In-Python modules:
 
-os
-
-datetime
-
-calendar
-
-warnings
-
-random
-
-webbrowser
+    os
+    datetime
+    calendar
+    warnings
+    random
+    webbrowser
 
 
 
 Recommended folder configuration:
 
-==Case Sensitive==
-
-/library/
-
-/Shortcuts/
-
-/Shortcuts/Games/
-
-/Shortcuts/Production/
-
-/Shortcuts/Softwares/
-
-/Songs/
-
-/Texts/To-Do List.txt
+    ==Case Sensitive==
+    /library/
+    /Shortcuts/
+    /Shortcuts/Games/
+    /Shortcuts/Production/
+    /Shortcuts/Softwares/
+    /Songs/
+    /Texts/To-Do List.txt
 
 
 
@@ -86,9 +68,8 @@ i.e user wants to create a list of songs that are motivating. File name must be 
 when giving commands to Lucy, "play a motivating song" will open a random song from this motivating.txt file
 Inside this file, YouTube VideoID's must be saved. It is the section after the "=" sign of YouTube URL
 
-i.e URL = https://www.youtube.com/watch?v=[dQw4w9WgXcQ]
-
-                                          ^^This part^^
+    i.e URL = https://www.youtube.com/watch?v=[dQw4w9WgXcQ]
+                                              ^^This part^^
 
 
 
@@ -131,6 +112,9 @@ Users can ask How is lucy using one of the phrases inside library/Answers.py sal
 
 To dismiss and close Lucy, use one of the phrases inside library/Answers.py goodbye list
 
+
+
+
 Customization:
 
 Answers.py contains the phrases user uses for certain events.
@@ -139,6 +123,9 @@ Contents of these files can be modified to fit into a better use for user.
 Changing commands inside other files to customize can be done but NOT RECOMMENDED
 IMPORTANT: inside library/misc.py file, there is a list called func_list. Changing it WON'T CHANGE the commands.
 It would break the code.
+
+
+
 
 Problems and future features:
 Lucy is very deterministic at the moment but we work on natural language processing to solve this problem.
