@@ -15,16 +15,8 @@ Things she can do:
 
 
 Contributors:
-<<<<<<< HEAD
 Author/Creator: Hakan Kestir (Huntsound) Hakankestir@gmail.com
 Contributor: Emre Alaybeyoglu Emrealaybeyoglu01@gmail.com
-=======
-
-    Author/Creator: Hakan Kestir (Huntsound) Hakankestir@gmail.com
-    Contributor: Emre Alaybeyoglu
-
-
->>>>>>> 09a918edd8853d0c62d74f028daffdb50c562d1f
 
 Necessary packages and versions:
 
